@@ -1,0 +1,2 @@
+# domaingen
+Domain name generator
