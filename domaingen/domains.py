@@ -1,6 +1,7 @@
 
 from itertools import combinations
-from py_thesaurus import Thesaurus
+import zipfile
+import json
 import whois
 import threading
 #install_requires=['python-whois', 'py-thesaurus', 'random-proxies'],
@@ -12,38 +13,38 @@ class DomainGenerator:
     def __init__(self, domain_keywords, tlds=["com"]):
         self.__domain_keywords = domain_keywords # Input: list of domains
         self.__tlds = tlds
-        
-    def get_domains(self):
+                
+    def get_domains(self, domain_keywords=None):
         domains = set()
+        if domain_keywords is None:
+            domain_keywords = self.__domain_keywords
         for tld in self.__tlds:
-            for i in range(2,len(self.__domain_keywords)):
-                for j in combinations(self.__domain_keywords,i):
+            for i in range(2,len(domain_keywords)):
+                for j in combinations(domain_keywords,i):
                     domains.add(''.join(j) + '.' + tld)
         return domains
         
     def get_synonym_domains(self):
-        domains = set()
         self.__synonym_domain_keywords = set()
-        for keyword in self.__domain_keywords:
-            thesaurus = Thesaurus(keyword)
-            synonym = thesaurus.get_synonym()
-            print(synonym)
-            #self.__synonym_domain_keywords.add(synonym)        
-        for tld in self.__tlds:
-            for i in range(2,len(self.__synonym_domain_keywords)):
-                for j in combinations(self.__synonym_domain_keywords,i):
-                    domains.add(''.join(j) + '.' + tld)
-        return domains
+        jdict = dict() # Load the thesaurus from zip json file        
+        with zipfile.ZipFile('eng_synonyms.json.zip') as myzip:
+            jc = myzip.open('eng_synonyms.json')
+            jdict = json.load(jc)
+        for k in self.__domain_keywords:
+            #print(jdict[k])
+            if jdict:
+                self.__synonym_domain_keywords.add(jdict[k].pop(0).replace(' ',''))
+        return self.get_domains(self.__synonym_domain_keywords)
 
 
 def main():
-    keywords = ["domain","name","generator","best"]
+    keywords = ["recipe","dinner","cooking","best"]
     tlds = ['com']
     #tlds = ['com','net']
     domaingen = DomainGenerator(keywords,tlds)
     
-    domains = domaingen.get_domains()
-    #domains = domaingen.get_synonym_domains()
+    #domains = domaingen.get_domains()
+    domains = domaingen.get_synonym_domains()
     
     for domain in domains:
         print(domain)
