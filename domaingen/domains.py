@@ -40,7 +40,7 @@ class DomainGenerator:
 def main():
     keywords = ["recipe","dinner","cooking","best"]
     tlds = ['com']
-    #tlds = ['com','net']
+    #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)
     
     domains = domaingen.get_domains()
