@@ -2,15 +2,15 @@
 from itertools import combinations
 import zipfile
 import json
-import whois
-import threading
+# import whois
+# import threading
 #install_requires=['python-whois', 'py-thesaurus', 'random-proxies'],
 #https://pypi.org/project/py-thesaurus/
 #https://pypi.org/project/random-proxies/
 
 class DomainGenerator:
 
-    def __init__(self, domain_keywords, tlds=["com"]):
+    def __init__(self, domain_keywords:list, tlds=["com"]):
         self.__domain_keywords = domain_keywords # Input: list of domains
         self.__tlds = tlds
                 
@@ -38,7 +38,7 @@ class DomainGenerator:
 
 
 def main():
-    keywords = ["recipe","dinner","cooking","best"]
+    keywords = ["recipe","dinner","cooking"]
     tlds = ['com']
     #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)

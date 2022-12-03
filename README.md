@@ -10,7 +10,7 @@ Create a domaingen object and input keywords
 
 ```python
 
-from domaingen.domains import DomainGenerator as dg
+from domaingen.domains import DomainGenerator
 
 keywords = ["recipes","cooking","dinner","easy"] # List of keywords
 tlds = ['com','net'] # List of top level domain extensions (optional, default is com)
