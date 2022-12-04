@@ -8,9 +8,9 @@ import json
 #https://pypi.org/project/py-thesaurus/
 #https://pypi.org/project/random-proxies/
 
-class DomainGenerator:
+class DomainGenerator():
 
-    def __init__(self, domain_keywords:list, tlds=["com"]):
+    def __init__(self, domain_keywords:list[str], tlds:list[str]=["com"]):
         self.__domain_keywords = domain_keywords # Input: list of domains
         self.__tlds = tlds
                 
@@ -43,9 +43,9 @@ def main():
     #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)
     
-    domains = domaingen.get_domains()
-    for domain in domains:
-        print(domain)
+    # domains = domaingen.get_domains()
+    # for domain in domains:
+    #     print(domain)
     
     domains = domaingen.get_synonym_domains()
     for domain in domains:
