@@ -43,9 +43,9 @@ def main():
     #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)
     
-    # domains = domaingen.get_domains()
-    # for domain in domains:
-    #     print(domain)
+    domains = domaingen.get_domains()
+    for domain in domains:
+        print(domain)
     
     domains = domaingen.get_synonym_domains()
     for domain in domains:
