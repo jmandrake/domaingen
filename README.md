@@ -2,7 +2,7 @@
 
 Generate domain names from a list of keywords.
 Checks domain availability using the Namecheap API.
-Can use a thesaurus to search for alternative keywords and domains.
+You can also use a thesaurus to search for alternative keywords and domains.
 
 ## Setup
 
@@ -21,7 +21,7 @@ Save the file as api_key.json
 3) See sample code below on how to use this package
 
 
-## Examples of How To Use
+## Examples of How To use the DaomainGenerator class to get available domains
 
 Create a domaingen object and input keywords
 
@@ -33,43 +33,34 @@ keywords = ["recipe","dinner","cooking","spices","food"] # List of keywords
 tlds = ['com'] # List of top level domain extensions (optional, default is com)
 
 domaingen = DomainGenerator(keywords,tlds)
-domains = domaingen.get_keyword_combinations()
+domains = domaingen.get_keyword_combinations(keywords)
+available_domains = domaingen.check_domains(domains)
+print("Available domains: " + str(len(available_domains)))
 for domain in domains:
     print(domain)
 
-
->>>
-recipedinnercooking.com
-recipedinnerspices.com
-recipecookingspicesfood.com
-dinnercookingfood.com
-dinnercookingspices.com
-spicesfood.com
-cookingfood.com
-recipespicesfood.com
-dinnercookingspicesfood.com
-recipedinnercookingspices.com
-recipedinner.com
-recipedinnercookingspicesfood.com
-recipespices.com
-recipedinnerfood.com
-cookingspicesfood.com
-recipecookingfood.com
-dinnercooking.com
-dinnerspices.com
-dinnerfood.com
-recipedinnercookingfood.com
-recipecookingspices.com
-recipefood.com
-recipecooking.com
-recipedinnerspicesfood.com
-dinnerspicesfood.com
-cookingspices.com
-
 ```
 
-## Sample XML response from Namecheap API
+## How to use the thesaurus function to get available domains
 
+```python
+
+from domaingen.domains import DomainGenerator
+
+keywords = ["recipe","dinner","cooking","spices","food"] # List of keywords
+tlds = ['com'] # List of top level domain extensions (optional, default is com)
+
+domaingen = DomainGenerator(keywords,tlds)
+domains = domaingen.get_synonym_domains(keywords)
+available_domains = domaingen.check_domains(domains)
+print("Available domains: " + str(len(available_domains)))
+for domain in domains:
+    print(domain)
+```
+
+
+## Sample XML response from Namecheap API
+```
 <?xml version="1.0" encoding="utf-8"?>
 <ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
   <Errors />
@@ -85,13 +76,13 @@ cookingspices.com
   <GMTTimeDifference>--5:00</GMTTimeDifference>
   <ExecutionTime>0.318</ExecutionTime>
 </ApiResponse>
-
+```
 
 ## Sample XML response from API if the IP is not whitelisted
 
 For more information on how to whitelist your IP:
 https://www.namecheap.com/support/api/intro/
-
+```
 <?xml version="1.0" encoding="utf-8"?>
 <ApiResponse Status="ERROR" xmlns="http://api.namecheap.com/xml.response">
   <Errors>
@@ -103,6 +94,7 @@ https://www.namecheap.com/support/api/intro/
   <GMTTimeDifference>--5:00</GMTTimeDifference>
   <ExecutionTime>0</ExecutionTime>
 </ApiResponse>
+```
 
 ## Thesaurus (English)
 This is a json dataset of synonyms for english words.
