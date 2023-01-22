@@ -1,4 +1,8 @@
 from domaingen.domains import DomainGenerator
+"""
+pytest
+
+"""
 
 def test_get_domains_value() -> None:
     keywords = ["recipe","dinner","cooking"]

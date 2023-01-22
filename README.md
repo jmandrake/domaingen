@@ -12,36 +12,42 @@ Create a domaingen object and input keywords
 
 from domaingen.domains import DomainGenerator
 
-keywords = ["recipes","cooking","dinner","easy"] # List of keywords
-tlds = ['com','net'] # List of top level domain extensions (optional, default is com)
+keywords = ["recipe","dinner","cooking","spices","food","apples"] # List of keywords
+tlds = ['com'] # List of top level domain extensions (optional, default is com)
 
 domaingen = DomainGenerator(keywords,tlds)
-domains = domaingen.get_domains()
+domains = domaingen.get_keyword_combinations()
 for domain in domains:
     print(domain)
 
 
 >>>
-cookingdinnereasy.net
-recipesdinnereasy.com
-recipescooking.com
-recipesdinner.com
-cookingdinner.net
-recipesdinner.net
-recipescookingeasy.net
-cookingeasy.net
-cookingeasy.com
-recipesdinnereasy.net
-recipescookingdinner.com
-recipescookingeasy.com
-cookingdinner.com
-recipescooking.net
-recipescookingdinner.net
-recipeseasy.net
-dinnereasy.com
-cookingdinnereasy.com
-dinnereasy.net
-recipeseasy.com
+recipedinnercooking.com
+recipedinnerspices.com
+recipecookingspicesfood.com
+dinnercookingfood.com
+dinnercookingspices.com
+spicesfood.com
+cookingfood.com
+recipespicesfood.com
+dinnercookingspicesfood.com
+recipedinnercookingspices.com
+recipedinner.com
+recipedinnercookingspicesfood.com
+recipespices.com
+recipedinnerfood.com
+cookingspicesfood.com
+recipecookingfood.com
+dinnercooking.com
+dinnerspices.com
+dinnerfood.com
+recipedinnercookingfood.com
+recipecookingspices.com
+recipefood.com
+recipecooking.com
+recipedinnerspicesfood.com
+dinnerspicesfood.com
+cookingspices.com
 
 ```
 
