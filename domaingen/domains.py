@@ -18,17 +18,17 @@ class DomainGenerator():
             for i in range(2,len(self.__domain_keywords)+1):
                 for j in combinations(self.__domain_keywords,i):
                     domains.add(''.join(j) + '.' + tld)
-        return domains
+        return list(domains)
                 
     def check_domains(self, domains:list[str])->list[str]:
         """Check if domains are available for registration using Namecheap API. Return a list of available domains."""
         api_info = dict()
         # if file exists, load it
         if os.path.isfile('api_key.json'):
-            with open('api_key.json') as f:
+            with open('api_key.json', 'r') as f:
                 api_info = json.load(f)
         if len(api_info.keys()) < 3:   
-            api_info = dict()
+
             api_info['api_user'] = input("Enter your Namecheap API username: ")
             api_info['api_key'] = input("Enter your Namecheap API key: ")
             api_info['api_ip'] = input("Enter your IP address: ")
@@ -36,7 +36,7 @@ class DomainGenerator():
         if len(api_info.keys()) == 3:
             if api_info['api_user'] and api_info['api_key'] and api_info['api_ip']:
                 # open API URL to fetch available domains
-                response = requests.get(f"https://api.namecheap.com/xml.response?ApiUser={api_info['api_user']}&ApiKey={api_info['api_key']}&UserName={api_info['api_user']}&Command=namecheap.domains.check&ClientIp={api_info['api_ip']}&DomainList={','.join(domains)}")
+                response = requests.get(f"https://api.namecheap.com/xml.response?ApiUser={api_info['api_user']}&ApiKey={api_info['api_key']}&UserName={api_info['api_user']}&Command=namecheap.domains.check&ClientIp={api_info['api_ip']}&DomainList={','.join(domains)}", timeout=10)
                 # parse XML response
                 xml = response.text
                 print(xml)
@@ -61,7 +61,7 @@ class DomainGenerator():
             #print(jdict[k])
             if jdict:
                 self.__synonym_domain_keywords.add(jdict[k].pop(0).replace(' ',''))
-        return self.get_domains(self.__synonym_domain_keywords)
+        return self.get_keyword_combinations(self.__synonym_domain_keywords)
 
 def main():
     # Test the DomainGenerator class with dummy keywords
@@ -75,8 +75,9 @@ def main():
     #     print(domain)
         
     available_domains = domaingen.check_domains(domains)
-    # for domain in domains:
-    #     print(domain)
+    print("Available domains: " + str(len(available_domains)))
+    for domain in domains:
+        print(domain)
     
     return available_domains
     

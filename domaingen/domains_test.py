@@ -9,7 +9,7 @@ def test_get_domains_value() -> None:
     tlds = ['com']
     #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)
-    domains = domaingen.get_domains()
+    domains = domaingen.get_keyword_combinations()
     assert "recipecooking.com" in domains 
     
 def test_get_domains_set() -> None:
@@ -17,7 +17,7 @@ def test_get_domains_set() -> None:
     tlds = ['com']
     #tlds = ['com','net', 'org']
     domaingen = DomainGenerator(keywords,tlds)
-    domains = domaingen.get_domains()
+    domains = domaingen.get_keyword_combinations()
     assert type(domains) is set
     
     
