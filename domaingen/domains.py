@@ -11,7 +11,11 @@ class DomainGenerator:
         self.__tlds = tlds
 
     def get_keyword_combinations(self, new_keywords: list[str] = None) -> list[str]:
-        """function to generate all possible keyword combinations from a list of keywords with a maximum of 3 keywords, non-repeating keywords, and non-repeating combinations of keywords. If the list contains 6 keywords, the function will return 15 two-word combinations, and 20 three-word combinations. No single keywords. No repeating combinations of keywords. No repeating keywords."""
+        """function to generate all possible keyword combinations from a list of keywords
+        with a maximum of 3 keywords, non-repeating keywords, and non-repeating
+        combinations of keywords. If the list contains 6 keywords, the function will
+        return 15 two-word combinations, and 20 three-word combinations.
+        No repeating keywords."""
         domains = set()
         domain_keywords = self.__domain_keywords
         if new_keywords:
@@ -23,7 +27,8 @@ class DomainGenerator:
         return list(domains)
 
     def check_domains(self, domains: list[str]) -> list[str]:
-        """Check if domains are available for registration using Namecheap API. Return a list of available domains."""
+        """Check if domains are available for registration using Namecheap API.
+        Return a list of available domains."""
         api_info = dict()
         # if file exists, load it
         if os.path.isfile("api_key.json"):
@@ -39,7 +44,10 @@ class DomainGenerator:
             if api_info["api_user"] and api_info["api_key"] and api_info["api_ip"]:
                 # open API URL to fetch available domains
                 response = requests.get(
-                    f"https://api.namecheap.com/xml.response?ApiUser={api_info['api_user']}&ApiKey={api_info['api_key']}&UserName={api_info['api_user']}&Command=namecheap.domains.check&ClientIp={api_info['api_ip']}&DomainList={','.join(domains)}",
+                    f"https://api.namecheap.com/xml.response?ApiUser={api_info['api_user']}\
+                        &ApiKey={api_info['api_key']}&UserName={api_info['api_user']}\
+                        &Command=namecheap.domains.check&ClientIp={api_info['api_ip']}\
+                        &DomainList={','.join(domains)}",
                     timeout=10,
                 )
                 # parse XML response
