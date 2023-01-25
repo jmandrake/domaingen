@@ -18,7 +18,9 @@ Save the file as api_key.json
     "api_ip": "111.111.111.111"
 }
 
-3) See sample code below on how to use this package
+3) Whitelist your IP address in the Namecheap API interface.
+
+4) See sample code below on how to use this package.
 
 
 ## Examples of How To use the DaomainGenerator class to get available domains
