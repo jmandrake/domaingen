@@ -6,11 +6,11 @@ import requests
 
 
 class DomainGenerator:
-    def __init__(self, domain_keywords: list[str], tlds: list[str] = ["com"]):
+    def __init__(self, domain_keywords, tlds = ["com"]):
         self.__domain_keywords = domain_keywords  # Input: list of domains
         self.__tlds = tlds
 
-    def get_keyword_combinations(self, new_keywords: list[str] = None) -> list[str]:
+    def get_keyword_combinations(self, new_keywords) -> list[str]:
         """function to generate all possible keyword combinations from a list of keywords
         with a maximum of 3 keywords, non-repeating keywords, and non-repeating
         combinations of keywords. If the list contains 6 keywords, the function will
@@ -26,7 +26,7 @@ class DomainGenerator:
                     domains.add("".join(j) + "." + tld)
         return list(domains)
 
-    def check_domains(self, domains: list[str]) -> list[str]:
+    def check_domains(self, domains) -> list[str]:
         """Check if domains are available for registration using Namecheap API.
         Return a list of available domains."""
         api_info = dict()
