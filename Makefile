@@ -6,7 +6,7 @@ format:
 	black *.py domaingen/*.py
 
 lint:
-	pylint --disable=R,C domaingen
+	pylint --disable=R,C domaingen/*.py
 
 test:
 	python -m pytest -vv --cov=domaingen --cov=tests
