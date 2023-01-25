@@ -9,8 +9,9 @@ class DomainGenerator:
     def __init__(self, domain_keywords, tlds):
         self.__domain_keywords = domain_keywords  # Input: list of domains
         self.__tlds = tlds
+        self.__synonym_domain_keywords = set()
 
-    def get_keyword_combinations(self, new_keywords) -> list[str]:
+    def get_keyword_combinations(self, new_keywords):
         """function to generate all possible keyword combinations from a list of keywords
         with a maximum of 3 keywords, non-repeating keywords, and non-repeating
         combinations of keywords. If the list contains 6 keywords, the function will
@@ -26,13 +27,13 @@ class DomainGenerator:
                     domains.add("".join(j) + "." + tld)
         return list(domains)
 
-    def check_domains(self, domains) -> list[str]:
+    def check_domains(self, domains):
         """Check if domains are available for registration using Namecheap API.
         Return a list of available domains."""
         api_info = dict()
         # if file exists, load it
         if os.path.isfile("api_key.json"):
-            with open("api_key.json", "r") as f:
+            with open("api_key.json", "r", encoding="utf-8") as f:
                 api_info = json.load(f)
         if len(api_info.keys()) < 3:
 
@@ -65,7 +66,6 @@ class DomainGenerator:
         return []
 
     def get_synonym_domains(self):
-        self.__synonym_domain_keywords = set()
         jdict = dict()  # Load the thesaurus from zip json file
         with zipfile.ZipFile("eng_synonyms.json.zip") as myzip:
             jc = myzip.open("eng_synonyms.json")
