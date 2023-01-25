@@ -6,7 +6,7 @@ import requests
 
 
 class DomainGenerator:
-    def __init__(self, domain_keywords, tlds = ["com"]):
+    def __init__(self, domain_keywords, tlds):
         self.__domain_keywords = domain_keywords  # Input: list of domains
         self.__tlds = tlds
 
