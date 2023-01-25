@@ -1,37 +1,25 @@
-from fastapi import FastAPI, Path, Query, HTTPException
-import uvicorn
+# pylint: disable=no-name-in-module
+# pylint: disable=no-self-argument
 from typing import Optional
 from pydantic import BaseModel
+from fastapi import FastAPI, Path, Query, HTTPException
+import uvicorn
 from dataclasses import dataclass, field
 from enum import Enum
 
-import domains
-
-"""
-This is just a test file
-
-uvicorn main:app --reload
-
-
-"""
-
 app = FastAPI()
-
 
 @app.get("/")
 async def read_root():
     return {"Hello": "GET"}
 
-
 @app.post("/")
 async def post():
     return {"Hello": "POST"}
 
-
 @app.put("/")
 async def put():
     return {"Hello": "PUT"}
-
 
 @app.get("/items/{item_id}")
 async def get_item(
@@ -40,16 +28,13 @@ async def get_item(
 ):
     return {"item_id": item_id, "q": q}
 
-
 @app.get("/get-by-name")
-async def get_item(*, name: Optional[str] = None, test: int):
+async def get_item_by_name(*, name):
     for item_id in inventory:
         if inventory[item_id].name == name:
             return inventory[item_id]
 
-
 inventory = {}
-
 
 class FoodsEnum(str, Enum):
     fruit = "fruit"
@@ -92,11 +77,11 @@ def update_item(item_id: int, item: UpdateItem):
         # return {"Error": "item_id does not exist."}
         raise HTTPException(status_code=404, detail="item_id not found.")
     # inventory[item_id] = item
-    if item.name != None:
+    if item.name is not None:
         inventory[item_id].name = item.name
-    if item.price != None:
+    if item.price is not None:
         inventory[item_id].price = item.price
-    if item.brand != None:
+    if item.brand is not None:
         inventory[item_id].brand = item.brand
     return inventory[item_id]
 
@@ -119,13 +104,4 @@ class InventoryItem:
 
 
 if __name__ == "__main__":
-    """
-    # Build the image
-    docker build -t domaingen .
-
-    # Run the image container
-    docker run -p 8000:8000 domaingen
-
-    # Must specify the port and host address:
-    """
     uvicorn.run(app, port=8000, host="0.0.0.0")

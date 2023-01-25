@@ -6,12 +6,13 @@ import requests
 
 
 class DomainGenerator:
+    """Generate domain names from a list of keywords"""
     def __init__(self, domain_keywords, tlds):
         self.__domain_keywords = domain_keywords  # Input: list of domains
         self.__tlds = tlds
         self.__synonym_domain_keywords = set()
 
-    def get_keyword_combinations(self, new_keywords):
+    def get_keyword_combinations(self, new_keywords=None):
         """function to generate all possible keyword combinations from a list of keywords
         with a maximum of 3 keywords, non-repeating keywords, and non-repeating
         combinations of keywords. If the list contains 6 keywords, the function will
@@ -19,12 +20,14 @@ class DomainGenerator:
         No repeating keywords."""
         domains = set()
         domain_keywords = self.__domain_keywords
+        if new_keywords is None:
+            new_keywords = self.__domain_keywords
         if new_keywords:
             domain_keywords = new_keywords
-        for tld in self.__tlds:
-            for i in range(2, len(domain_keywords) + 1):
-                for j in combinations(domain_keywords, i):
-                    domains.add("".join(j) + "." + tld)
+            for tld in self.__tlds:
+                for i in range(2, len(domain_keywords) + 1):
+                    for j in combinations(domain_keywords, i):
+                        domains.add("".join(j) + "." + tld)
         return list(domains)
 
     def check_domains(self, domains):
