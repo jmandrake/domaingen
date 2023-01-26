@@ -1,3 +1,5 @@
+[![Test](https://github.com/jmandrake/domaingen/actions/workflows/ci.yml/badge.svg)](https://github.com/jmandrake/domaingen/actions/workflows/ci.yml)
+
 # domaingen
 
 Generate domain names from a list of keywords.
